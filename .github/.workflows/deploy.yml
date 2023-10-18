@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build  # Adjust this to your build script
+
+    - name: Deploy to GitHub Pages
+      run: |
+        echo "www.example.com" > dist/CNAME  # If you have a custom domain
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "Your Name"
+        git checkout --orphan gh-pages
+        git --work-tree dist add --all
+        git --work-tree dist commit -m "Deploy Vite app to GitHub Pages"
+        git push origin HEAD:gh-pages
