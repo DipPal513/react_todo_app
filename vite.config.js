@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react()],
     base: '/react_todo_app/',
     // ...other config options
-  
+   
 })
